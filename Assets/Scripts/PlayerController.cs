@@ -1,21 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnPlayerRewind;
+    public static event Action OnPlayerFinish;
+
     PlayerMovement playerMovement;
-
-
-    Dictionary<float, UserInput> actions;
+    Dictionary<float, List<UserInput>> actions;
 
     bool playerControlled;
 
     PlayerMovement.MovementDelegate movementDelegate;
-    void OnEnable()
+    void Awake()
     {
         TimerScript.Instance.SetTime(0f);
-        actions = new Dictionary<float, UserInput>();
+        actions = new Dictionary<float, List<UserInput>>();
         playerMovement = GetComponent<PlayerMovement>();
         playerControlled = true;
         movementDelegate = null;
@@ -31,28 +33,26 @@ public class PlayerController : MonoBehaviour
         //---LEFT AND RIGHT LOGGING---
         if(Input.GetKeyDown(KeyCode.D)){
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.D, true);
+            playerMovement.MoveRight();
         }
 
         if(Input.GetKeyDown(KeyCode.A)){
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.A, true);
+            playerMovement.MoveLeft();
         }
 
         if(Input.GetKeyUp(KeyCode.D)){
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.D, false);
+            playerMovement.StopRight();
         }
 
         if(Input.GetKeyUp(KeyCode.A)){
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.A, false);
+            playerMovement.StopLeft();
         }
 
 
-        //---LEFT AND RIGHT---
-        if(Input.GetKey(KeyCode.A)){
-            playerMovement.MoveLeft();
-        }
-        if(Input.GetKey(KeyCode.D)){
-            playerMovement.MoveRight();
-        }
+        
 
         
         //---JUMP---
@@ -70,25 +70,25 @@ public class PlayerController : MonoBehaviour
 
         //print actions in the actions map
         if(Input.GetKeyDown(KeyCode.LeftAlt)){
-            Dictionary<float, UserInput>.KeyCollection keys = actions.Keys;
+            Dictionary<float, List<UserInput>>.KeyCollection keys = actions.Keys;
             foreach(float time in keys){
-                print(time + "   Action: " + actions[time]);
+                string toPrint = "Time: " + time + " ";
+                List<UserInput> inputs = actions[time];
+
+                inputs.ForEach((e) => {
+                    toPrint += e.ToString();
+                });
+                
+                print(toPrint);
             }
         }
 
         //execute actions from the map
         if(Input.GetKeyDown(KeyCode.LeftControl)){
+            OnPlayerRewind();
             TimerScript.Instance.SetTime(0f);
             playerControlled = false;
-            
-            transform.position = new Vector2(0, 0);
-            InstantiateNewPlayer();
-            //StartCoroutine("ExecuteActions");
         }
-    }
-
-    void InstantiateNewPlayer(){
-        Instantiate(this, new Vector3(0,1,0), Quaternion.identity);
     }
 
     void FixedUpdate() {
@@ -96,31 +96,23 @@ public class PlayerController : MonoBehaviour
             float time = TimerScript.Instance.GetTime();
 
             if(actions.ContainsKey(time)){
-                if(actions[time].GetDown())
-                ExecuteAction(actions[time].GetKey());
-                else movementDelegate = null;
+                List<UserInput> tmp = actions[time];
+                foreach(UserInput userInput in tmp){
+                    if(userInput.GetDown())
+                        ExecuteAction(userInput.GetKey());
+                    else 
+                        ExecuteUpKeyAction(userInput.GetKey());
+                        
+                    if(movementDelegate != null) movementDelegate();
+                }
+                
             }
 
-            if(movementDelegate != null) movementDelegate();
+            
+
+            
         }
         
-    }
-
-    //not used
-    IEnumerator ExecuteActions(){
-        while(true){
-        float time = TimerScript.Instance.GetTime();
-
-            if(actions.ContainsKey(time)){
-                if(actions[time].GetDown())
-                ExecuteAction(actions[time].GetKey());
-                else movementDelegate = null;
-            }
-
-        if(movementDelegate != null) movementDelegate();
-
-        yield return null;
-        }
     }
 
     void ExecuteAction(KeyCode key){
@@ -133,16 +125,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void AddActionEntry(float time, KeyCode key, bool down){
-        UserInput toAdd = new UserInput(key, down);
-        try{
-            actions.Add(time, toAdd);
-        }
-        catch{
-            actions.Add(time + Time.fixedDeltaTime, toAdd);
+    void ExecuteUpKeyAction(KeyCode key){
+        switch (key){
+            case KeyCode.D: movementDelegate = playerMovement.StopRight; break;
+            case KeyCode.A: movementDelegate = playerMovement.StopLeft; break;
+            default: return;
         }
     }
 
+    void AddActionEntry(float time, KeyCode key, bool down){
+        UserInput toAdd = new UserInput(key, down);
+        if(!actions.ContainsKey(time)){
+            List<UserInput> tmp = new List<UserInput>();
+            tmp.Add(toAdd);
+            actions.Add(time, tmp);
+        } else {
+            actions[time].Add(toAdd);
+        }
+    
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if(other.name == "LevelEnd"){
+            OnPlayerFinish();
+        }
+    }
 
     struct UserInput{
         KeyCode key;
@@ -153,15 +160,12 @@ public class PlayerController : MonoBehaviour
             this.down = down;
         }
         
-        
         public override string ToString(){
             return key.ToString() + "   " + "Down: " + down;
         }
-
         public KeyCode GetKey(){
             return key;
         }
-
         public bool GetDown(){
             return down;
         }
