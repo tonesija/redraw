@@ -31,6 +31,7 @@ public class LevelButtonManager : MonoBehaviour
     }
 
     public void LoadLevel(){
-        SceneManager.LoadScene(levelSceneName);
+        //SceneManager.LoadScene(levelSceneName);
+        LevelManagerScript.Instance.LoadLevel(levelNumber);
     }
 }

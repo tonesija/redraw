@@ -52,9 +52,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        
-
-        
         //---JUMP---
         if(Input.GetKeyDown(KeyCode.Space)){
             playerMovement.Jump();
@@ -86,53 +83,47 @@ public class PlayerController : MonoBehaviour
         //execute actions from the map
         if(Input.GetKeyDown(KeyCode.LeftControl)){
             OnPlayerRewind();
-            TimerScript.Instance.SetTime(0f);
             playerControlled = false;
         }
     }
 
     void FixedUpdate() {
-        if(playerControlled == false){
+        if(playerControlled == false){  //if the player is not playerControlled move him via the action map and Timer singleton
             float time = TimerScript.Instance.GetTime();
 
             if(actions.ContainsKey(time)){
                 List<UserInput> tmp = actions[time];
                 foreach(UserInput userInput in tmp){
-                    if(userInput.GetDown())
-                        ExecuteAction(userInput.GetKey());
-                    else 
-                        ExecuteUpKeyAction(userInput.GetKey());
-                        
+                    ExecuteAction(userInput.GetKey(), userInput.GetDown());
+                
                     if(movementDelegate != null) movementDelegate();
                 }
                 
-            }
-
-            
-
-            
+            } 
         }
         
     }
 
-    void ExecuteAction(KeyCode key){
-        switch (key){
-            case KeyCode.D: movementDelegate = playerMovement.MoveRight; break;
-            case KeyCode.A: movementDelegate = playerMovement.MoveLeft; break;
-            case KeyCode.Space: playerMovement.Jump(); break;
-            case KeyCode.S: playerMovement.SizeUp(); break;
-            default: return;
+    //execute the player action
+    void ExecuteAction(KeyCode key, bool down){
+        if(down){
+            switch (key){
+                case KeyCode.D: movementDelegate = playerMovement.MoveRight; break;
+                case KeyCode.A: movementDelegate = playerMovement.MoveLeft; break;
+                case KeyCode.Space: playerMovement.Jump(); break;
+                case KeyCode.S: playerMovement.SizeUp(); break;
+                default: return;
+            }
+        } else {
+            switch (key){
+                case KeyCode.D: movementDelegate = playerMovement.StopRight; break;
+                case KeyCode.A: movementDelegate = playerMovement.StopLeft; break;
+                default: return;
+            }
         }
     }
 
-    void ExecuteUpKeyAction(KeyCode key){
-        switch (key){
-            case KeyCode.D: movementDelegate = playerMovement.StopRight; break;
-            case KeyCode.A: movementDelegate = playerMovement.StopLeft; break;
-            default: return;
-        }
-    }
-
+    //add action to the action map
     void AddActionEntry(float time, KeyCode key, bool down){
         UserInput toAdd = new UserInput(key, down);
         if(!actions.ContainsKey(time)){
@@ -145,6 +136,7 @@ public class PlayerController : MonoBehaviour
     
     }
 
+    //trigger the OnPlayerFinish event when some player touches the LevelEnd gameObject
     void OnTriggerEnter2D(Collider2D other) {
         if(other.name == "LevelEnd"){
             OnPlayerFinish();

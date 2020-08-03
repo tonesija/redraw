@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
 
     bool grounded;
 
+    public Vector2 moveSpeed;
+
+    public float maxMoveSpeed;
+
     void OnEnable(){
         rb = GetComponent<Rigidbody2D>();
         grounded = false;
@@ -45,10 +49,20 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Move(bool right){
         while(true){
-            float speed = 2f;
-            if(!right) speed = -speed;
+            if(grounded){
+                if(!right) rb.velocity = -new Vector2(moveSpeed.x, rb.velocity.y);
+                else rb.velocity = new Vector2(moveSpeed.x, rb.velocity.y);
+            } else {
+                if(!right) rb.velocity += -new Vector2(moveSpeed.x, 0) / 5f;
+                else rb.velocity += new Vector2(moveSpeed.x, 0) / 5f;
+            }
 
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            if(rb.velocity.x > maxMoveSpeed){
+                rb.velocity = new Vector2(maxMoveSpeed, rb.velocity.y);
+            }
+            if(rb.velocity.x < -maxMoveSpeed){
+                rb.velocity = new Vector2(-maxMoveSpeed, rb.velocity.y);
+            }
 
             yield return null;
         }
