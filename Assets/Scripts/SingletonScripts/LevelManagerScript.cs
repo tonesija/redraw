@@ -17,6 +17,8 @@ public class LevelManagerScript : MonoBehaviour
     public int[] requiredScores;
 
     List<GameObject> players;
+
+    public List<IResetable> resetables;
     Vector2 spawnLoc;
 
     int level;
@@ -54,6 +56,7 @@ public class LevelManagerScript : MonoBehaviour
             PlayerController.OnPlayerRewind += OnPlayerRewind;
             PlayerController.OnPlayerFinish += OnPlayerReachLevelFinish;
             PlayerController.OnPauseBtnClick += OnPause;
+            resetables = new List<IResetable>();
             subscribedToPlayer = true;
         }
     }
@@ -131,6 +134,8 @@ public class LevelManagerScript : MonoBehaviour
 
     //load a level and call NextLevel
     IEnumerator LoadLevelAsync(int level){
+        resetables.Clear();
+
         asyncLoadLevel = SceneManager.LoadSceneAsync("Level"+ level);
         while(!asyncLoadLevel.isDone) yield return null;
         NextLevel();
@@ -158,7 +163,11 @@ public class LevelManagerScript : MonoBehaviour
             player.SetActive(false);    //deactivate all players
         }
 
-        yield return new WaitForSeconds(eraserPrefab.GetComponent<EraserScript>().duration); //wait for the duration of the erase animation
+        foreach(IResetable resetable in resetables){
+            resetable.Reset(eraserPrefab);
+        }
+
+        yield return new WaitForSeconds(EraserScript.duration); //wait for the duration of the erase animation
         TimerScript.Instance.SetTime(0f); //reset the movement clock
 
         foreach(GameObject player in players){  //periodically spawn all players
@@ -167,6 +176,7 @@ public class LevelManagerScript : MonoBehaviour
             player.transform.position = spawnLoc;
             yield return new WaitForSeconds(0.5f);
         }
+
     }
 
     int GetScore(int req, int rewinds){

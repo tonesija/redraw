@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EraserScript : MonoBehaviour
 {
-    public float duration;
+    public static float duration = 1f;
 
     public float distance;
 
