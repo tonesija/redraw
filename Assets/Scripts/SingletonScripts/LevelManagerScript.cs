@@ -12,6 +12,8 @@ public class LevelManagerScript : MonoBehaviour
 
     public GameObject endLevelUIPrefab;
 
+    public GameObject pauseUIPrefab;
+
     public int[] requiredScores;
 
     List<GameObject> players;
@@ -23,7 +25,11 @@ public class LevelManagerScript : MonoBehaviour
 
     bool subscribedToPlayer;
 
+    bool endLvlUIActive;
+
     AsyncOperation asyncLoadLevel;
+
+    GameObject pauseUI;
 
 
 
@@ -47,6 +53,7 @@ public class LevelManagerScript : MonoBehaviour
         if(!subscribedToPlayer){
             PlayerController.OnPlayerRewind += OnPlayerRewind;
             PlayerController.OnPlayerFinish += OnPlayerReachLevelFinish;
+            PlayerController.OnPauseBtnClick += OnPause;
             subscribedToPlayer = true;
         }
     }
@@ -54,11 +61,33 @@ public class LevelManagerScript : MonoBehaviour
     //should be called after the level has been loaded
     //finds the spawnLocation, subscribes to players listeners and spawns the first player
     void NextLevel(){
+        Time.timeScale = 1;
         spawnLoc = GameObject.Find("PlayerSpawn").transform.position;
         rewinds = 0;
+        endLvlUIActive = false;
 
         players = new List<GameObject>();
         players.Add(Instantiate(playerPrefab, spawnLoc, Quaternion.identity));
+    }
+
+    //gets called when the user presses "escape"
+    void OnPause(){
+        if(endLvlUIActive) return;
+        if(pauseUI == null){
+            pauseUI = Instantiate(pauseUIPrefab);
+            Time.timeScale = 0;
+            return;
+        }
+        
+        if(pauseUI.activeSelf == false) {
+            pauseUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else {
+            pauseUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+        
     }
 
 
@@ -86,6 +115,8 @@ public class LevelManagerScript : MonoBehaviour
     }
 
     EndLevelUIScript ShowUI(){
+        Time.timeScale = 0;
+        endLvlUIActive = true;
         return Instantiate(endLevelUIPrefab).GetComponent<EndLevelUIScript>();
     }
 
@@ -115,6 +146,10 @@ public class LevelManagerScript : MonoBehaviour
 
     public void LoadMainMenu(){
         SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public int GetRewinds(){
+        return rewinds;
     }
 
     //spawns all players periodically on the spawnLoc

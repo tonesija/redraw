@@ -49,4 +49,6 @@ MonoBehaviour:
     type: 3}
   endLevelUIPrefab: {fileID: 1829339948852893010, guid: 133b252e877dab6eda3faa7e56bda62d,
     type: 3}
+  pauseUIPrefab: {fileID: 2541991346856015508, guid: 4f297e8e4d6c7be08b44f8d3128ec59b,
+    type: 3}
   requiredScores: 0100000001000000

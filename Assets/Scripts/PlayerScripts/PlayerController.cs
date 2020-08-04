@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public static event Action OnPlayerRewind;
     public static event Action OnPlayerFinish;
 
+    public static event Action OnPauseBtnClick;
+
     PlayerMovement playerMovement;
     Dictionary<float, List<UserInput>> actions;
 
@@ -62,6 +64,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.S)){
             playerMovement.SizeUp();
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.S, true);
+        }
+
+        //---PAUSE---
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            OnPauseBtnClick();
         }
 
 
