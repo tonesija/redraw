@@ -47,3 +47,6 @@ MonoBehaviour:
     type: 3}
   eraserPrefab: {fileID: 6808789593339336735, guid: 1cfcd85054b6cdb8489de54dcc9b9bac,
     type: 3}
+  endLevelUIPrefab: {fileID: 1829339948852893010, guid: 133b252e877dab6eda3faa7e56bda62d,
+    type: 3}
+  requiredScores: 0100000001000000

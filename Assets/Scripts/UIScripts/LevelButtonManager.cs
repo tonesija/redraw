@@ -9,6 +9,10 @@ public class LevelButtonManager : MonoBehaviour
     public int levelNumber = 1;
     private string levelSceneName;
 
+    public GameObject firstStar;
+    public GameObject secondStar;
+    public GameObject thirdStar;
+
     void OnEnable(){
         // Setting the name of the button's scene
         levelSceneName = "Level" + levelNumber.ToString();
@@ -27,11 +31,34 @@ public class LevelButtonManager : MonoBehaviour
         // Setting the text inside the button
         TextMeshProUGUI buttonText = GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = levelNumber.ToString();
+
+        ShowStars();
         
     }
 
     public void LoadLevel(){
         //SceneManager.LoadScene(levelSceneName);
         LevelManagerScript.Instance.LoadLevel(levelNumber);
+    }
+
+    void ShowStars(){
+        int numOfStars = PlayerPrefs.GetInt(levelNumber.ToString(), 0);
+
+        firstStar.SetActive(false);
+        secondStar.SetActive(false);
+        thirdStar.SetActive(false);
+
+        if(numOfStars == 1){
+            firstStar.SetActive(true);
+        }
+        if(numOfStars == 2){
+            firstStar.SetActive(true);
+            secondStar.SetActive(true);
+        }
+        if(numOfStars == 3){
+            firstStar.SetActive(true);
+            secondStar.SetActive(true);
+            thirdStar.SetActive(true);
+        }
     }
 }
