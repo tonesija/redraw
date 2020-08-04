@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 moveSpeed;
 
     public float maxMoveSpeed;
+    private Vector3 startingScale;
+
+    public Animator animator;
 
     void OnEnable(){
         rb = GetComponent<Rigidbody2D>();
@@ -32,10 +35,14 @@ public class PlayerMovement : MonoBehaviour
         
         Jump = () => {if(grounded) rb.velocity += new Vector2(0, 3f);};
         SizeUp = () => StartCoroutine("Grow", 2f);
+        startingScale = transform.localScale;
     }
 
     void Update() {
         UpdateGrounded();
+        
+        animator.SetFloat("LinearSpeed", Mathf.Abs(rb.velocity.x));
+        animator.SetBool("IsJumping", !grounded);
     }
 
     IEnumerator Grow(float scalar){
@@ -64,24 +71,33 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(-maxMoveSpeed, rb.velocity.y);
             }
 
+            if(transform.localScale.x > 0 && rb.velocity.x < -0.1f || 
+               transform.localScale.x < 0 && rb.velocity.x > 0.1f){
+                   transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+               }
+
             yield return null;
         }
     }
 
     public void Reset(){
-        transform.localScale = new Vector3(1f, 1f, 1f);
+        transform.localScale = startingScale;
         //...
     }
 
     void UpdateGrounded(){
-        float dis = transform.GetComponent<SpriteRenderer>().bounds.size.y / 1.6f;
+        float dis = transform.GetComponent<CapsuleCollider2D>().bounds.size.y / 1.5f;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, dis);
 
         if(hit.collider != null){
-            grounded = true;
-        }else{
             grounded = false;
+
+            Debug.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y + dis), Color.green);
+        }else{
+            grounded = true;
+            Debug.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y + dis), Color.red);
         }
+
     }
 }
 
