@@ -23,7 +23,7 @@ public class EraserScript : MonoBehaviour
         while(time <= duration){
             time += Time.deltaTime;
 
-            if(Mathf.Abs(transform.position.magnitude - origPos.magnitude) > distance) {
+            if(Mathf.Abs((transform.position - (Vector3)origPos).magnitude) > distance) {
                 speed = -speed;
                 transform.position += (Vector3)speed * Time.deltaTime;
             }
