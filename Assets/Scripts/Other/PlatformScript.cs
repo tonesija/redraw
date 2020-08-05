@@ -4,44 +4,90 @@ using UnityEngine;
 
 public class PlatformScript : ISwitchable
 {
-    public Vector2 location;
+    public bool isSpringPlatform;
 
-    public float speed;
+    public Vector2 endingLocation;
+    
 
-    Vector2 dir;
+    public float movingSpeed;
 
-    Vector2 startLocation;
+    private Vector2 startingLocation;
 
-    bool moving;
+    private Vector2 dir;
+    private bool moving;
 
-    bool toLocation;
+    private bool toOrFrom;
+    private float distanceTraveled;
 
-    float distance;
-    float moved;
+    private float distanceToTravel;
+    private bool stopSpring;
 
     void Start()
     {
-        toLocation = true;
-        dir = (-transform.position + (Vector3)location).normalized;
-        startLocation = transform.position;
-        distance = (transform.position - (Vector3)location).magnitude;
+        toOrFrom = !isSpringPlatform;
+        moving = false;
+        stopSpring = true;
+
+        startingLocation = transform.position;
+        dir = (-startingLocation + endingLocation).normalized;
+        
+        distanceTraveled = 0.0f;
+        distanceToTravel = Vector2.Distance(startingLocation, endingLocation);
+        
     }
 
     void Update()
     {
-        if(moving){
-            if(toLocation){
-                transform.Translate(speed * dir * Time.deltaTime);
-            }else {
-                transform.Translate(-speed * dir * Time.deltaTime);
-            }
-            moved += speed * Time.deltaTime;
+        // if(moving){
+        //     if(toLocation){
+        //         transform.Translate(speed * dir * Time.deltaTime);
+        //     }else {
+        //         transform.Translate(-speed * dir * Time.deltaTime);
+        //     }
+        //     moved += speed * Time.deltaTime;
 
-            if(moved >= distance){
-                toLocation = !toLocation;
-                moved = 0f;
+        //     if(moved >= distance){
+        //         toLocation = !toLocation;
+        //         moved = 0f;
+        //     }
+        // }
+
+        if(isSpringPlatform){
+            if(toOrFrom != moving){
+                toOrFrom = moving;
+                distanceToTravel = Vector2.Distance(transform.position, toOrFrom ? endingLocation : startingLocation);
+                stopSpring = false;
+                distanceTraveled = 0.0f;
+            }
+
+            if(!stopSpring){
+                MovePlatform();
+            }
+            
+        }else{
+            if(moving){
+                MovePlatform();
             }
         }
+    }
+
+    void MovePlatform(){
+
+        if(distanceTraveled < distanceToTravel){
+            float multiplier = toOrFrom ? 1.0f : -1.0f;
+            transform.Translate(multiplier * movingSpeed * dir * Time.deltaTime);
+            distanceTraveled += movingSpeed * Time.deltaTime;
+        }else {
+            if(!isSpringPlatform){
+                toOrFrom ^= true;
+            }else{
+                stopSpring = true;
+            }
+
+            distanceTraveled = 0.0f;
+            
+        }
+
     }
 
     override public void SwitchOn(){
@@ -50,5 +96,15 @@ public class PlatformScript : ISwitchable
 
     override public void SwitchOff(){
         moving = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        other.transform.parent = transform;
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if(other.gameObject.activeSelf){
+            other.transform.parent = null;
+        }
     }
 }

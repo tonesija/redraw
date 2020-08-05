@@ -185,7 +185,8 @@ public class LevelManagerScript : MonoBehaviour
 
     //spawns all players periodically on the spawnLoc
     IEnumerator SpawnPlayers(){
-        foreach(GameObject player in players){  
+        foreach(GameObject player in players){ 
+            player.transform.parent = null; 
             player.SetActive(false);    //deactivate all players
         }
 

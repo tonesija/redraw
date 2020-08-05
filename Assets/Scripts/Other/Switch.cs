@@ -6,12 +6,21 @@ public class Switch : MonoBehaviour
 {
     public ISwitchable[] switchableObjects;
 
+    public Sprite SwitchUp;
+    public Sprite SwitchDown;
+
     public bool isRadio;
 
     bool toggle;
 
     void OnTriggerEnter2D(Collider2D other) {
         toggle = !toggle;
+
+        if(toggle || !isRadio){
+            GetComponent<SpriteRenderer>().sprite = SwitchDown;
+        }else{
+            GetComponent<SpriteRenderer>().sprite = SwitchUp;
+        }
 
 
         foreach(ISwitchable switchable in switchableObjects){
@@ -30,5 +39,7 @@ public class Switch : MonoBehaviour
         foreach(ISwitchable switchable in switchableObjects){
             switchable.SwitchOff();
         }
+        
+        GetComponent<SpriteRenderer>().sprite = SwitchUp;
     }
 }
