@@ -79,17 +79,28 @@ public class PlayerController : MonoBehaviour
         }
 
         //---MORPHING---
-        if(Input.GetKeyDown(KeyCode.Alpha1)){
-            playerMovement.Morph(morphUI.GetMorph1());
-            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha1, true);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
-            playerMovement.Morph(morphUI.GetMorph2());
-            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha2, true);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha3)){
-            playerMovement.Morph(morphUI.GetMorph3());
-            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha3, true);
+        if(gameRunning){
+            if(Input.GetKeyDown(KeyCode.Alpha1)){
+                GameObject morph = morphUI.GetMorph1();
+                if(morph != null){
+                    playerMovement.Morph(morph);
+                    AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha1, true);
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha2)){
+                GameObject morph = morphUI.GetMorph3();
+                if(morph != null){
+                    playerMovement.Morph(morph);
+                    AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha2, true);
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha3)){
+                GameObject morph = morphUI.GetMorph3();
+                if(morph != null){
+                    playerMovement.Morph(morph);
+                    AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha3, true);
+                }
+            }
         }
 
 

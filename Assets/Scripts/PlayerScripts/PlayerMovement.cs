@@ -69,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     IEnumerator MorphTo(GameObject toMorph){
-        GameObject newObj = Instantiate(toMorph, transform.position, Quaternion.identity);
+        Vector2 morphLoc = transform.position + (Vector3)new Vector2(0, toMorph.GetComponent<SpriteRenderer>().bounds.size.y / 2f);
+        GameObject newObj = Instantiate(toMorph, morphLoc, Quaternion.identity);
         newObj.GetComponent<PlayerMorphs>().AddToResetableList();
 
         transform.position = new Vector2(-100, -100);
@@ -80,21 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Move(bool right){
         while(true){
-            // if(grounded){
-            //     if(!right) rb.velocity = -new Vector2(moveSpeed.x, rb.velocity.y);
-            //     else rb.velocity = new Vector2(moveSpeed.x, rb.velocity.y);
-            // } else {
-            //     if(!right) rb.velocity += -new Vector2(moveSpeed.x, 0) / 5f;
-            //     else rb.velocity += new Vector2(moveSpeed.x, 0) / 5f;
-            // }
-
-            // if(rb.velocity.x > maxMoveSpeed){
-            //     rb.velocity = new Vector2(maxMoveSpeed, rb.velocity.y);
-            // }
-            // if(rb.velocity.x < -maxMoveSpeed){
-            //     rb.velocity = new Vector2(-maxMoveSpeed, rb.velocity.y);
-            // }
-
             this.right = right;
             moving = true;
 

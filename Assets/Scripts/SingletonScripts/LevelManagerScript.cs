@@ -38,6 +38,7 @@ public class LevelManagerScript : MonoBehaviour
 
     GameObject pauseUI;
 
+
     GameObject morphUI;
 
 
@@ -85,6 +86,7 @@ public class LevelManagerScript : MonoBehaviour
     //gets called when the user presses "escape"
     void OnPause(){
         if(endLvlUIActive) return;
+    
         if(pauseUI == null){
             pauseUI = Instantiate(pauseUIPrefab);
             Time.timeScale = 0;
