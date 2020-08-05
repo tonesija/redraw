@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class LevelManagerScript : MonoBehaviour
 {
     public static LevelManagerScript Instance {get; private set;}
+
+    public float spawnDelay;
     public GameObject playerPrefab;
 
     public GameObject eraserPrefab;
@@ -200,7 +202,7 @@ public class LevelManagerScript : MonoBehaviour
             player.SetActive(true);
             player.GetComponent<PlayerMovement>().Reset();
             player.transform.position = spawnLoc;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(spawnDelay);
         }        
 
     }

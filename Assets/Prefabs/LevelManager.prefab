@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6808273ce42872032af154f363bde956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnDelay: 1.5
   playerPrefab: {fileID: 4271086745531714435, guid: c441296f4e594d743a4fc98f109a3b00,
     type: 3}
   eraserPrefab: {fileID: 6808789593339336735, guid: 1cfcd85054b6cdb8489de54dcc9b9bac,
@@ -55,4 +56,4 @@ MonoBehaviour:
     type: 3}
   morphTestPrefab: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb,
     type: 3}
-  requiredScores: 010000000200000002000000010000000100000003000000
+  requiredScores: 010000000200000002000000010000000100000002000000
