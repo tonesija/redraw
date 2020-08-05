@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -108,8 +109,13 @@ public class LevelManagerScript : MonoBehaviour
         rewinds++;
 
         foreach(GameObject player in players){  //spawn erasers
-            Instantiate(eraserPrefab, player.transform.position, Quaternion.identity);
+            Instantiate(eraserPrefab, player.transform.position, Quaternion.identity); 
         }
+
+        foreach(SpriteRenderer s in players.ElementAt(players.Count - 1).GetComponentsInChildren<SpriteRenderer>()){
+            s.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        }
+        
         
         GameObject newPlayer = Instantiate(playerPrefab, spawnLoc, Quaternion.identity);
         players.Add(newPlayer);

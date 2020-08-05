@@ -55,4 +55,4 @@ MonoBehaviour:
     type: 3}
   morphTestPrefab: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb,
     type: 3}
-  requiredScores: 0100000001000000
+  requiredScores: 010000000200000002000000
