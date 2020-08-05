@@ -14,6 +14,10 @@ public class LevelManagerScript : MonoBehaviour
 
     public GameObject pauseUIPrefab;
 
+    public GameObject morphUIPrefab;
+
+    public GameObject morphTestPrefab;
+
     public int[] requiredScores;
 
     List<GameObject> players;
@@ -32,6 +36,8 @@ public class LevelManagerScript : MonoBehaviour
     AsyncOperation asyncLoadLevel;
 
     GameObject pauseUI;
+
+    GameObject morphUI;
 
 
 
@@ -71,6 +77,8 @@ public class LevelManagerScript : MonoBehaviour
 
         players = new List<GameObject>();
         players.Add(Instantiate(playerPrefab, spawnLoc, Quaternion.identity));
+
+        
     }
 
     //gets called when the user presses "escape"
@@ -138,6 +146,12 @@ public class LevelManagerScript : MonoBehaviour
 
         asyncLoadLevel = SceneManager.LoadSceneAsync("Level"+ level);
         while(!asyncLoadLevel.isDone) yield return null;
+
+        morphUI = Instantiate(morphUIPrefab);
+
+        //TESTING
+        morphUI.GetComponent<MorphUIScript>().SetMorph1(morphTestPrefab);
+        
         NextLevel();
     }
     public void LoadNextLevel(){
@@ -157,15 +171,18 @@ public class LevelManagerScript : MonoBehaviour
         return rewinds;
     }
 
+    public MorphUIScript GetMorphUIScript(){
+        return morphUI.GetComponent<MorphUIScript>();
+    }
+
     //spawns all players periodically on the spawnLoc
     IEnumerator SpawnPlayers(){
         foreach(GameObject player in players){  
             player.SetActive(false);    //deactivate all players
         }
 
-        foreach(IResetable resetable in resetables){
-            resetable.Reset(eraserPrefab);
-        }
+        CleanResetableList();
+        ResetResetables();
 
         yield return new WaitForSeconds(EraserScript.duration); //wait for the duration of the erase animation
         TimerScript.Instance.SetTime(0f); //reset the movement clock
@@ -175,8 +192,32 @@ public class LevelManagerScript : MonoBehaviour
             player.GetComponent<PlayerMovement>().Reset();
             player.transform.position = spawnLoc;
             yield return new WaitForSeconds(0.5f);
-        }
+        }        
 
+    }
+
+    void CleanResetableList(){
+        int num = resetables.Count;
+
+        for(int i = num - 1; i >= 0; --i){
+            if(resetables[i] is PlayerMorphs){
+                if((PlayerMorphs) resetables[i] == null){
+                    resetables.RemoveAt(i);
+                    continue;
+                }
+            }
+            if(resetables[i] == null) resetables.RemoveAt(i);
+        }
+        
+    }
+
+
+    //calls the Reset() method on all the resetables in the scene
+    //Reset() should reset the object to its starting state in the scene
+    void ResetResetables(){
+        foreach(IResetable resetable in resetables){
+            resetable.Reset(eraserPrefab);
+        }
     }
 
     int GetScore(int req, int rewinds){

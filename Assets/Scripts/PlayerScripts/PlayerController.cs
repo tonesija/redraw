@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     bool playerControlled;
 
     PlayerMovement.MovementDelegate movementDelegate;
+
+    MorphUIScript morphUI;
+
     void Awake()
     {
         TimerScript.Instance.SetTime(0f);
@@ -23,6 +26,8 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerControlled = true;
         movementDelegate = null;
+
+        morphUI = LevelManagerScript.Instance.GetMorphUIScript();
     }
 
     
@@ -73,6 +78,20 @@ public class PlayerController : MonoBehaviour
             OnPauseBtnClick();
         }
 
+        //---MORPHING---
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            playerMovement.Morph(morphUI.GetMorph1());
+            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha1, true);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
+            playerMovement.Morph(morphUI.GetMorph2());
+            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha2, true);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)){
+            playerMovement.Morph(morphUI.GetMorph3());
+            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha3, true);
+        }
+
 
         //print actions in the actions map
         if(Input.GetKeyDown(KeyCode.LeftAlt)){
@@ -121,6 +140,9 @@ public class PlayerController : MonoBehaviour
                 case KeyCode.A: movementDelegate = playerMovement.MoveLeft; break;
                 case KeyCode.Space: playerMovement.Jump(); break;
                 case KeyCode.S: playerMovement.SizeUp(); break;
+                case KeyCode.Alpha1: playerMovement.Morph(morphUI.GetMorph1()); break;
+                case KeyCode.Alpha2: playerMovement.Morph(morphUI.GetMorph2()); break;
+                case KeyCode.Alpha3: playerMovement.Morph(morphUI.GetMorph3()); break;
                 default: return;
             }
         } else {

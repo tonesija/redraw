@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     public MovementDelegate StopLeft;
     public delegate void MovementDelegate();
 
+    public TransformDelegate Morph;
+
+    public delegate void TransformDelegate(GameObject toTransform);
+
     Rigidbody2D rb;
 
     bool grounded;
@@ -40,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
         
         Jump = () => {if(grounded) rb.velocity += new Vector2(0, jumpForce);};
         SizeUp = () => StartCoroutine("Grow", 2f);
+
+        Morph = (to) => {
+            StartCoroutine("MorphTo", to);
+        };
+
         startingScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
@@ -57,6 +66,16 @@ public class PlayerMovement : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    IEnumerator MorphTo(GameObject toMorph){
+        GameObject newObj = Instantiate(toMorph, transform.position, Quaternion.identity);
+        newObj.GetComponent<PlayerMorphs>().AddToResetableList();
+
+        transform.position = new Vector2(-100, -100);
+
+        yield return null;
+        
     }
 
     IEnumerator Move(bool right){
