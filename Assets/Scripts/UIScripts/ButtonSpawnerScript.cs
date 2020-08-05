@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ButtonSpawnerScript : MonoBehaviour
 {
-    public int numberOfLevels;
+    private int numberOfLevels;
     public GameObject levelButtonPrefab;
     public Transform content;
 
     void Start()
     {
-        /* 
-            put code here to fetch the number of levels from levelmanager object
-        */
 
+        // Gets the number of levels
+        numberOfLevels = LevelManagerScript.Instance.requiredScores.Length;
         
+        // Spawns level buttons
         for(int i=0; i<numberOfLevels; i++){
             GameObject levelButtonObj = Instantiate(levelButtonPrefab);
             levelButtonObj.transform.SetParent(content, false);

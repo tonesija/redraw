@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Tiles-3-2-scribble_0
+  m_Name: Tiles-3-3-scribble_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 178575159928148286, guid: cefcd51d43cc47841bbb743f4843e540, type: 3}
+  m_Sprite: {fileID: 5027958006677067425, guid: 37c0a4800be7744429aa523873452743,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

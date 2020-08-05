@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void CheckInput(){
+        bool gameRunning = Time.timeScale > 0.9f;
+
         //---LEFT AND RIGHT LOGGING---
         if(Input.GetKeyDown(KeyCode.D)){
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.D, true);
@@ -55,13 +57,13 @@ public class PlayerController : MonoBehaviour
 
 
         //---JUMP---
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) && gameRunning){
             playerMovement.Jump();
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Space, true);
         }
 
         //---SIZEUP---
-        if(Input.GetKeyDown(KeyCode.S)){
+        if(Input.GetKeyDown(KeyCode.S) && gameRunning){
             playerMovement.SizeUp();
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.S, true);
         }
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //execute actions from the map
-        if(Input.GetKeyDown(KeyCode.LeftControl)){
+        if(Input.GetKeyDown(KeyCode.LeftControl) && gameRunning){
             OnPlayerRewind();
             playerControlled = false;
         }

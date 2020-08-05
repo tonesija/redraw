@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: cefcd51d43cc47841bbb743f4843e540
+guid: 37c0a4800be7744429aa523873452743
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 178575159928148286
-    second: Tiles-3-2-scribble_0
+      213: 5027958006677067425
+    second: Tiles-3-3-scribble_0
   - first:
-      213: 2103135366536777442
-    second: Tiles-3-2-scribble_1
+      213: -3678143925245153830
+    second: Tiles-3-3-scribble_1
   - first:
-      213: -7615906371037022535
-    second: Tiles-3-2-scribble_2
+      213: 464626025597956763
+    second: Tiles-3-3-scribble_2
   - first:
-      213: 8901741043418163252
-    second: Tiles-3-2-scribble_3
+      213: 2850600922717950436
+    second: Tiles-3-3-scribble_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,7 +111,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiles-3-2-scribble_0
+      name: Tiles-3-3-scribble_0
       rect:
         serializedVersion: 2
         x: 64
@@ -119,20 +119,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 4, y: 32}
+        - {x: 4, y: -4}
+        - {x: -32, y: -4}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: e31d93d692d6a7200800000000000000
-      internalID: 178575159928148286
+      spriteID: 1a65195fa25e6c540800000000000000
+      internalID: 5027958006677067425
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles-3-2-scribble_1
+      name: Tiles-3-3-scribble_1
       rect:
         serializedVersion: 2
         x: 128
@@ -140,20 +146,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -4}
+        - {x: -4, y: -4}
+        - {x: -4, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 2ee4cf41976df2d10800000000000000
-      internalID: 2103135366536777442
+      spriteID: add600f669b94fcc0800000000000000
+      internalID: -3678143925245153830
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles-3-2-scribble_2
+      name: Tiles-3-3-scribble_2
       rect:
         serializedVersion: 2
         x: 64
@@ -161,20 +173,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 9b634bf918dde4690800000000000000
-      internalID: -7615906371037022535
+      spriteID: b92fa2998eea27600800000000000000
+      internalID: 464626025597956763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles-3-2-scribble_3
+      name: Tiles-3-3-scribble_3
       rect:
         serializedVersion: 2
         x: 128
@@ -182,14 +200,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: -4, y: -32}
+        - {x: -4, y: 4}
+        - {x: 32, y: 4}
+        - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 4386477c056598b70800000000000000
-      internalID: 8901741043418163252
+      spriteID: 4e11103af6e5f8720800000000000000
+      internalID: 2850600922717950436
       vertices: []
       indices: 
       edges: []

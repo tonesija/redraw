@@ -1319,7 +1319,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 1a9feb8eac3d1454a800206eb7712b29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1805,6 +1805,26 @@ PrefabInstance:
         type: 3}
       propertyPath: levelNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3136895159194399496, guid: 21504dd7cef9c7e41a25977db213841c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3136895159194399496, guid: 21504dd7cef9c7e41a25977db213841c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3136895159194399496, guid: 21504dd7cef9c7e41a25977db213841c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3136895159194399496, guid: 21504dd7cef9c7e41a25977db213841c,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21504dd7cef9c7e41a25977db213841c, type: 3}

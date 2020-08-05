@@ -79,10 +79,11 @@ public class PlayerMovement : MonoBehaviour
             this.right = right;
             moving = true;
 
-            if(transform.localScale.x > 0 && !right || 
-               transform.localScale.x < 0 && right){
+            if(Time.timeScale > 0.9f && 
+              (transform.localScale.x > 0 && !right || 
+               transform.localScale.x < 0 && right)){
                    transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
-               }
+            }
 
             if(right){
                 transform.Translate(moveSpeed * Time.deltaTime);

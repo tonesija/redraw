@@ -25,16 +25,16 @@ public class EndLevelUIScript : MonoBehaviour
 
     public void SetScore(int score){
         if(score == 1){
-            firstStar.GetComponent<Image>().color = Color.red;
+            firstStar.GetComponent<Image>().color = Color.white;
         }
         if(score == 2){
-            firstStar.GetComponent<Image>().color = Color.red;
-            secondStar.GetComponent<Image>().color = Color.red;
+            firstStar.GetComponent<Image>().color = Color.white;
+            secondStar.GetComponent<Image>().color = Color.white;
         }
         if(score == 3){
-            firstStar.GetComponent<Image>().color = Color.red;
-            secondStar.GetComponent<Image>().color = Color.red;
-            thirdStar.GetComponent<Image>().color = Color.red;
+            firstStar.GetComponent<Image>().color = Color.white;
+            secondStar.GetComponent<Image>().color = Color.white;
+            thirdStar.GetComponent<Image>().color = Color.white;
         }
 
     }
@@ -42,7 +42,7 @@ public class EndLevelUIScript : MonoBehaviour
     public void ShowNewHighScore(){
         highScoreText.SetActive(true);
 
-        highScoreText.GetComponent<ParticleSystem>().Play();
+        // highScoreText.GetComponent<ParticleSystem>().Play();
     }
 
     void OnNextLvlClick(){
