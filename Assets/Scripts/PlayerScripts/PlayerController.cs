@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             if(Input.GetKeyDown(KeyCode.Alpha2)){
-                GameObject morph = morphUI.GetMorph3();
+                GameObject morph = morphUI.GetMorph2();
                 if(morph != null){
                     playerMovement.Morph(morph);
                     AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Alpha2, true);

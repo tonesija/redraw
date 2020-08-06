@@ -14,7 +14,13 @@ public class UIManagerScript : MonoBehaviour {
         }
     }
     public void LoadLastPlayedLevel(){
-        LevelManagerScript.Instance.LoadLevel(PlayerPrefs.GetInt("lastPlayedLevel", 1));
+        int lastPlayedLevel = PlayerPrefs.GetInt("lastPlayedLevel", 1);
+        
+        if(lastPlayedLevel > LevelManagerScript.Instance.levelInfos.Length){
+            lastPlayedLevel = LevelManagerScript.Instance.levelInfos.Length;
+        }
+
+        LevelManagerScript.Instance.LoadLevel(lastPlayedLevel);
     }
 
     public void LoadLevelsScene(){
