@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlatformScript : ISwitchable
 {
-    public bool isSpringPlatform;
 
+    public bool isGate;
+
+    public bool isSpringPlatform;
+    
     public Vector2 endingLocation;
     
 
@@ -29,28 +32,23 @@ public class PlatformScript : ISwitchable
         stopSpring = true;
 
         startingLocation = transform.position;
+
+        if(isGate){
+            endingLocation = startingLocation + new Vector2(0.0f, 2.0f);
+            isSpringPlatform = true;
+        }
+
         dir = (-startingLocation + endingLocation).normalized;
         
         distanceTraveled = 0.0f;
         distanceToTravel = Vector2.Distance(startingLocation, endingLocation);
+
+        
         
     }
 
     void Update()
     {
-        // if(moving){
-        //     if(toLocation){
-        //         transform.Translate(speed * dir * Time.deltaTime);
-        //     }else {
-        //         transform.Translate(-speed * dir * Time.deltaTime);
-        //     }
-        //     moved += speed * Time.deltaTime;
-
-        //     if(moved >= distance){
-        //         toLocation = !toLocation;
-        //         moved = 0f;
-        //     }
-        // }
 
         if(isSpringPlatform){
             if(toOrFrom != moving){
