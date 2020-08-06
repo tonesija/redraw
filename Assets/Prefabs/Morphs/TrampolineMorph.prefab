@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8494174168797262503}
   - component: {fileID: -5319538253182672800}
   - component: {fileID: 618767113415516169}
+  - component: {fileID: 5415207547051764588}
   m_Layer: 0
   m_Name: TrampolineMorph
   m_TagString: Trampoline
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5456911102523065464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 727.14594, y: 709.7711, z: -43.785362}
+  m_LocalPosition: {x: 727.14594, y: 709.7711, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,7 +96,7 @@ EdgeCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4a1eab0d4f1eee48a84377dee498465d, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.15}
   m_EdgeRadius: 0.03
@@ -114,3 +115,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46cd83f9433467fe5bd0ba4f61fdd696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!251 &5415207547051764588
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456911102523065464}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 135
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
