@@ -54,6 +54,32 @@ MonoBehaviour:
     type: 3}
   morphUIPrefab: {fileID: 5310601704007657787, guid: 5b4649610a941f802921de2ffad89dd1,
     type: 3}
-  morphTestPrefab: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb,
-    type: 3}
-  requiredScores: 0100000002000000020000000100000001000000020000000100000003000000
+  levelInfos:
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb, type: 3}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb, type: 3}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 2
+  - morph1: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb, type: 3}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 2

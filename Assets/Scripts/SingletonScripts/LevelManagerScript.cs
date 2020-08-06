@@ -18,10 +18,8 @@ public class LevelManagerScript : MonoBehaviour
     public GameObject pauseUIPrefab;
 
     public GameObject morphUIPrefab;
-
-    public GameObject morphTestPrefab;
-
-    public int[] requiredScores;
+    
+    public LevelInfo[] levelInfos;
 
     List<GameObject> players;
 
@@ -131,7 +129,7 @@ public class LevelManagerScript : MonoBehaviour
     void OnPlayerReachLevelFinish(){
 
         EndLevelUIScript uiScript = ShowUI();
-        uiScript.SetScore(GetScore(requiredScores[level - 1], rewinds));
+        uiScript.SetScore(GetScore(levelInfos[level - 1].requiredScore, rewinds));
         SaveToPlayerPrefsAndShowHighscore(uiScript);
     }
 
@@ -144,8 +142,8 @@ public class LevelManagerScript : MonoBehaviour
     void SaveToPlayerPrefsAndShowHighscore(EndLevelUIScript script){
         int previousScore = PlayerPrefs.GetInt(level.ToString(), 0);
 
-        if(previousScore < GetScore(requiredScores[level - 1], rewinds)){
-            PlayerPrefs.SetInt(level + "", GetScore(requiredScores[level - 1], rewinds));
+        if(previousScore < GetScore(levelInfos[level - 1].requiredScore, rewinds)){
+            PlayerPrefs.SetInt(level + "", GetScore(levelInfos[level - 1].requiredScore, rewinds));
             script.ShowNewHighScore();
         }
     }
@@ -157,12 +155,18 @@ public class LevelManagerScript : MonoBehaviour
         asyncLoadLevel = SceneManager.LoadSceneAsync("Level"+ level);
         while(!asyncLoadLevel.isDone) yield return null;
 
-        morphUI = Instantiate(morphUIPrefab);
-
-        //TESTING
-        morphUI.GetComponent<MorphUIScript>().SetMorph1(morphTestPrefab);
+        InstantiateMorphUI();
         
         NextLevel();
+    }
+
+    void InstantiateMorphUI(){
+        morphUI = Instantiate(morphUIPrefab);
+        morphUI.GetComponent<MorphUIScript>().SetMorph1(levelInfos[level - 1].morph1);
+        morphUI.GetComponent<MorphUIScript>().SetMorph2(levelInfos[level - 1].morph2);
+        morphUI.GetComponent<MorphUIScript>().SetMorph3(levelInfos[level - 1].morph3);
+
+        if(!morphUI.GetComponent<MorphUIScript>().HasMorphs()) morphUI.SetActive(false);
     }
     public void LoadNextLevel(){
         StartCoroutine("LoadLevelAsync", ++level);
@@ -179,6 +183,10 @@ public class LevelManagerScript : MonoBehaviour
 
     public int GetRewinds(){
         return rewinds;
+    }
+
+    public int GetCurrentLvl(){
+        return level;
     }
 
     public MorphUIScript GetMorphUIScript(){
@@ -237,5 +245,16 @@ public class LevelManagerScript : MonoBehaviour
         if(rewinds - 1 == req) return 2;
 
         return 1;
+    }
+
+    [System.Serializable]
+    public class LevelInfo{
+        public GameObject morph1;
+        public GameObject morph2;
+        public GameObject morph3;
+
+        public int requiredScore;
+
+        
     }
 }

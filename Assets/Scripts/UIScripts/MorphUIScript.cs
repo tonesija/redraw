@@ -28,6 +28,12 @@ public class MorphUIScript : MonoBehaviour
             morph3Image.color = Color.white;
             morph3Image.sprite = morph3.GetComponent<SpriteRenderer>().sprite;
         }
+
+        
+    }
+
+    public bool HasMorphs(){
+        return morph1 || morph2 || morph3;
     }
 
     public void SetMorph1(GameObject morph){

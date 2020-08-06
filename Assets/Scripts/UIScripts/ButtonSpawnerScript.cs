@@ -12,7 +12,7 @@ public class ButtonSpawnerScript : MonoBehaviour
     {
 
         // Gets the number of levels
-        numberOfLevels = LevelManagerScript.Instance.requiredScores.Length;
+        numberOfLevels = LevelManagerScript.Instance.levelInfos.Length;
         
         // Spawns level buttons
         for(int i=0; i<numberOfLevels; i++){
