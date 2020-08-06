@@ -39,6 +39,11 @@ public class EndLevelUIScript : MonoBehaviour
 
     }
 
+    public void DisableNextLvlBtn(){
+        nextLvlBtn.gameObject.SetActive(false);
+        mainMenuBtn.transform.localPosition = new Vector2(0, mainMenuBtn.transform.localPosition.y);
+    }
+
     public void ShowNewHighScore(){
         highScoreText.SetActive(true);
 
