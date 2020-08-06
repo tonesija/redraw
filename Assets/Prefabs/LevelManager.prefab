@@ -83,3 +83,7 @@ MonoBehaviour:
     morph2: {fileID: 0}
     morph3: {fileID: 0}
     requiredScore: 2
+  - morph1: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb, type: 3}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 2
