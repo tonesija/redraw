@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -33,6 +34,10 @@ public class LevelButtonManager : MonoBehaviour
         buttonText.text = levelNumber.ToString();
 
         ShowStars();
+
+        if(levelNumber > PlayerPrefs.GetInt("lastPlayedLevel", 1)){
+            GreyOut();
+        }
         
     }
 
@@ -60,5 +65,9 @@ public class LevelButtonManager : MonoBehaviour
             secondStar.SetActive(true);
             thirdStar.SetActive(true);
         }
+    }
+
+    void GreyOut(){
+        GetComponent<Button>().interactable = false;
     }
 }

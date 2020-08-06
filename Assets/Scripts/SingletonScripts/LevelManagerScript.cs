@@ -130,6 +130,7 @@ public class LevelManagerScript : MonoBehaviour
 
         EndLevelUIScript uiScript = ShowUI();
         uiScript.SetScore(GetScore(levelInfos[level - 1].requiredScore, rewinds));
+        if(level == levelInfos.Length) uiScript.DisableNextLvlBtn();
         SaveToPlayerPrefsAndShowHighscore(uiScript);
     }
 
@@ -141,6 +142,7 @@ public class LevelManagerScript : MonoBehaviour
 
     void SaveToPlayerPrefsAndShowHighscore(EndLevelUIScript script){
         int previousScore = PlayerPrefs.GetInt(level.ToString(), 0);
+        PlayerPrefs.SetInt("lastPlayedLevel", level + 1);
 
         if(previousScore < GetScore(levelInfos[level - 1].requiredScore, rewinds)){
             PlayerPrefs.SetInt(level + "", GetScore(levelInfos[level - 1].requiredScore, rewinds));
