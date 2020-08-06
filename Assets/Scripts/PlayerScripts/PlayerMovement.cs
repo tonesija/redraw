@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         float dis = transform.GetComponent<CapsuleCollider2D>().bounds.size.y / 2f;
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + dis), Vector3.down, dis * 1.1f);
 
-        if(hit.collider != null){
+        if(hit.collider != null && hit.collider.gameObject.tag != "Trampoline"){
             grounded = true;
 
         }else{

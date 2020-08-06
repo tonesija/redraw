@@ -13,8 +13,11 @@ public class Switch : MonoBehaviour
 
     bool toggle;
 
+    int counter;
+
     void OnTriggerEnter2D(Collider2D other) {
         toggle = !toggle;
+        counter++;
 
         if(toggle || !isRadio){
             GetComponent<SpriteRenderer>().sprite = SwitchDown;
@@ -36,10 +39,14 @@ public class Switch : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         if(isRadio) return;
+
+        counter--;
+
         foreach(ISwitchable switchable in switchableObjects){
-            switchable.SwitchOff();
+            if(counter == 0){
+                GetComponent<SpriteRenderer>().sprite = SwitchUp;
+                switchable.SwitchOff();
+            }
         }
-        
-        GetComponent<SpriteRenderer>().sprite = SwitchUp;
     }
 }
