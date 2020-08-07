@@ -10,6 +10,7 @@ public class Switch : MonoBehaviour
     public Sprite SwitchDown;
 
     public bool isRadio;
+    public bool canBeSwitchedOff = true;
 
     bool toggle;
 
@@ -22,7 +23,9 @@ public class Switch : MonoBehaviour
         if(toggle || !isRadio){
             GetComponent<SpriteRenderer>().sprite = SwitchDown;
         }else{
-            GetComponent<SpriteRenderer>().sprite = SwitchUp;
+            if(canBeSwitchedOff || !isRadio){
+                GetComponent<SpriteRenderer>().sprite = SwitchUp;
+            }
         }
 
 
@@ -30,7 +33,9 @@ public class Switch : MonoBehaviour
             if(toggle || !isRadio){
                 switchable.SwitchOn();
             }else{
-                switchable.SwitchOff();
+                if(canBeSwitchedOff || !isRadio){
+                    switchable.SwitchOff();
+                }
             }
 
         }

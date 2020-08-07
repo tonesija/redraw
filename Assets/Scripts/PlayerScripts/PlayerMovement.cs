@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public MovementDelegate MoveRight;
     public MovementDelegate MoveLeft;
     public MovementDelegate Jump;
-    public MovementDelegate SizeUp;
     public MovementDelegate StopRight;
     public MovementDelegate StopLeft;
     public delegate void MovementDelegate();
@@ -39,11 +38,12 @@ public class PlayerMovement : MonoBehaviour
         MoveRight = () => {StopCoroutine("Move"); StartCoroutine("Move", true);};
         MoveLeft = () => {StopCoroutine("Move"); StartCoroutine("Move", false);};
 
-        StopRight = () => {if(right) StopCoroutine("Move"); moving = false;};
-        StopLeft = () => {if(!right) StopCoroutine("Move"); moving = false;};
+        // ivan edited this
+        // rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        StopRight = () => {if(right) StopCoroutine("Move"); if(Mathf.Abs(rb.velocity.x) <= moveSpeed.x + 0.1f) rb.velocity = new Vector2(0.0f, rb.velocity.y); moving = false;};
+        StopLeft = () => {if(!right) StopCoroutine("Move"); if(Mathf.Abs(rb.velocity.x) <= moveSpeed.x + 0.1f) rb.velocity = new Vector2(0.0f, rb.velocity.y); moving = false;};
         
-        Jump = () => {if(grounded) rb.velocity += new Vector2(0, jumpForce);};
-        SizeUp = () => StartCoroutine("Grow", 2f);
+        Jump = () => {if(grounded) rb.velocity = new Vector2(0.0f, jumpForce);};
 
         Morph = (to) => {
             StartCoroutine("MorphTo", to);
@@ -55,17 +55,8 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         UpdateGrounded();
 
-        animator.SetFloat("LinearSpeed", moving ? 1.0f : 0.0f);
         animator.SetBool("IsJumping", !grounded);
-    }
-
-    IEnumerator Grow(float scalar){
-        Vector3 limit = scalar * transform.localScale;
-        while(transform.localScale.x <= limit.x){
-            transform.localScale *= 1.1f;
-
-            yield return new WaitForSeconds(0.1f);
-        }
+        animator.SetFloat("LinearSpeed", moving ? 1.0f : 0.0f);
     }
 
     IEnumerator MorphTo(GameObject toMorph){
@@ -90,11 +81,16 @@ public class PlayerMovement : MonoBehaviour
                    transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
 
-            if(right){
-                transform.Translate(moveSpeed * Time.deltaTime);
-                
-            }else{
-                transform.Translate(-moveSpeed * Time.deltaTime);
+            if(Mathf.Abs(rb.velocity.x) <= moveSpeed.x + 0.1f){
+
+                if(right){
+                    // transform.Translate(moveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(moveSpeed.x, rb.velocity.y);
+                    
+                }else{
+                    // transform.Translate(-moveSpeed * Time.deltaTime);
+                    rb.velocity = new Vector2(-moveSpeed.x, rb.velocity.y);
+                }
             }
 
             yield return null;
@@ -107,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void UpdateGrounded(){
-        float dis = transform.GetComponent<CapsuleCollider2D>().bounds.size.y / 2f;
+        float dis = transform.GetComponent<Collider2D>().bounds.size.y / 2f;
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + dis), Vector3.down, dis * 1.1f);
 
         if(hit.collider != null && hit.collider.gameObject.tag != "Trampoline"){

@@ -4,26 +4,46 @@ using UnityEngine;
 
 public class PortalScript : MonoBehaviour
 {
+    public Transform portalExit;
+
     private Vector3 portalExitLocation;
+    private float portalExitAngle;
+
     private void Start() {
-        portalExitLocation = transform.GetChild(0).position;
+        portalExitLocation = portalExit.position;
+        portalExitAngle = portalExit.eulerAngles.z;
     }
+
     private void OnTriggerEnter2D(Collider2D other) {
+
         Rigidbody2D playerRB = other.gameObject.GetComponent<Rigidbody2D>();
-        Vector2 velocity = playerRB.velocity;
-        float angle = (transform.eulerAngles.z + 180) * Mathf.Deg2Rad;
-        Vector2 normal = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        Vector2 velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y);
+        
+        if(Vector2.Angle(velocity, transform.position - other.transform.position) < 90.0f){
 
-        Vector2 newVelocity = Vector2.Reflect(velocity, normal);
+            
+            
+            float velocityAngle = Vector2.Angle(Vector2.right, velocity);
+            float velocityMag = velocity.magnitude;
+            
 
-        float angleBetweenPortals = angle + transform.GetChild(0).localEulerAngles.z * Mathf.Deg2Rad;
-        print("Kut izmedu portala: " + angleBetweenPortals);
+            if(velocity.y < 0.0f) velocityAngle *= -1.0f;
 
-        float mag = velocity.magnitude;
+            float portalEntranceAngle = transform.eulerAngles.z;
 
-        newVelocity = new Vector2(mag * Mathf.Cos(angleBetweenPortals), mag * Mathf.Sin(angleBetweenPortals));
-        other.transform.position = portalExitLocation;
+            float velocityPortalRelativeAngle = velocityAngle - portalEntranceAngle;
 
-        playerRB.velocity = newVelocity;
+            float exitVelocityAngle = portalExitAngle + velocityPortalRelativeAngle;
+
+            Vector2 newVelocity = velocityMag * new Vector2(Mathf.Cos(exitVelocityAngle * Mathf.Deg2Rad), Mathf.Sin(exitVelocityAngle * Mathf.Deg2Rad));
+            
+            print("Player velocity angle: " + velocityAngle + "\nPortal entrance angle: " + portalEntranceAngle + "\nPortal exit angle: " + portalExitAngle);
+            
+            print("New velocity:" + newVelocity);
+            other.transform.position = portalExitLocation;
+
+            playerRB.velocity = newVelocity;
+        }
     }
+
 }

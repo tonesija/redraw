@@ -67,12 +67,6 @@ public class PlayerController : MonoBehaviour
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Space, true);
         }
 
-        //---SIZEUP---
-        if(Input.GetKeyDown(KeyCode.S) && gameRunning){
-            playerMovement.SizeUp();
-            AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.S, true);
-        }
-
         //---PAUSE---
         if(Input.GetKeyDown(KeyCode.Escape)){
             OnPauseBtnClick();
@@ -150,7 +144,6 @@ public class PlayerController : MonoBehaviour
                 case KeyCode.D: movementDelegate = playerMovement.MoveRight; break;
                 case KeyCode.A: movementDelegate = playerMovement.MoveLeft; break;
                 case KeyCode.Space: playerMovement.Jump(); break;
-                case KeyCode.S: playerMovement.SizeUp(); break;
                 case KeyCode.Alpha1: playerMovement.Morph(morphUI.GetMorph1()); break;
                 case KeyCode.Alpha2: playerMovement.Morph(morphUI.GetMorph2()); break;
                 case KeyCode.Alpha3: playerMovement.Morph(morphUI.GetMorph3()); break;

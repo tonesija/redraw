@@ -110,7 +110,7 @@ public class LevelManagerScript : MonoBehaviour
         StopCoroutine("SpawnPlayers");
         rewinds++;
 
-        Vector2 playerOffset = new Vector2(0, players[0].GetComponent<CapsuleCollider2D>().bounds.size.y / 2);
+        Vector2 playerOffset = new Vector2(0, players[0].GetComponent<Collider2D>().bounds.size.y / 2);
         foreach(GameObject player in players){  //spawn erasers
             Instantiate(eraserPrefab, player.transform.position + (Vector3)playerOffset, Quaternion.identity); 
         }
