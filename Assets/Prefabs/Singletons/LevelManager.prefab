@@ -130,3 +130,14 @@ MonoBehaviour:
     morph2: {fileID: 0}
     morph3: {fileID: 0}
     requiredScore: 0
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 5456911102523065464, guid: c076a694308219faf897e10bc9638447,
+      type: 3}
+    requiredScore: 1
+  - morph1: {fileID: 528550420802333615, guid: 5a0a7cbd8f0f64b839fd5dbc7e2c97bb, type: 3}
+    morph2: {fileID: 3301870168033871888, guid: 2c67115a0e17d50869531cdd481ab37a,
+      type: 3}
+    morph3: {fileID: 5456911102523065464, guid: c076a694308219faf897e10bc9638447,
+      type: 3}
+    requiredScore: 2
