@@ -110,3 +110,12 @@ MonoBehaviour:
     morph3: {fileID: 5456911102523065464, guid: c076a694308219faf897e10bc9638447,
       type: 3}
     requiredScore: 0
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 5456911102523065464, guid: c076a694308219faf897e10bc9638447,
+      type: 3}
+    requiredScore: 1
