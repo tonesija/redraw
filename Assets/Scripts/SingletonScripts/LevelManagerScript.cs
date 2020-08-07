@@ -49,7 +49,6 @@ public class LevelManagerScript : MonoBehaviour
             Instance = this;
             InitializeSingleton();
             DontDestroyOnLoad(gameObject);
-            PlayerPrefs.DeleteAll();
         } else {
             Destroy(gameObject);
         }

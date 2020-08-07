@@ -36,7 +36,7 @@ public class LevelButtonManager : MonoBehaviour
         ShowStars();
 
         if(levelNumber > PlayerPrefs.GetInt("lastPlayedLevel", 1)){
-            //GreyOut();
+            GreyOut();
         }
         
     }
