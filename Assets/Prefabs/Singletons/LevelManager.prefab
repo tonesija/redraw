@@ -125,4 +125,8 @@ MonoBehaviour:
   - morph1: {fileID: 0}
     morph2: {fileID: 0}
     morph3: {fileID: 0}
+    requiredScore: 1
+  - morph1: {fileID: 0}
+    morph2: {fileID: 0}
+    morph3: {fileID: 0}
     requiredScore: 0
