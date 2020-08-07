@@ -130,23 +130,37 @@ public class LevelManagerScript : MonoBehaviour
 
     //triggers when player touches the level end game object
     void OnPlayerReachLevelFinish(){
+        Time.timeScale = 0;
 
-        EndLevelUIScript uiScript = ShowUI();
-        uiScript.SetScore(GetScore(levelInfos[level - 1].requiredScore, rewinds));
+        EndLevelUIScript uiScript = Instantiate(endLevelUIPrefab).GetComponent<EndLevelUIScript>();
         if(level == levelInfos.Length) uiScript.DisableNextLvlBtn();
         SaveToPlayerPrefsAndShowHighscore(uiScript);
+        uiScript.gameObject.SetActive(false);
+        StartCoroutine("ShowUI", uiScript);
+        
+        AudioManager.Instance.PlayLevelFinishedSound();
+
+       
     }
 
-    EndLevelUIScript ShowUI(){
-        Time.timeScale = 0;
+    IEnumerator WaitForSeconds (float seconds) {
+        float startTime = Time.realtimeSinceStartup; 
+        while (Time.realtimeSinceStartup-startTime < seconds) {
+            yield return null;
+        }
+    }
+
+    IEnumerator ShowUI(EndLevelUIScript script){
+        yield return StartCoroutine("WaitForSeconds", 0.9f);
+        script.gameObject.SetActive(true);
         endLvlUIActive = true;
-        return Instantiate(endLevelUIPrefab).GetComponent<EndLevelUIScript>();
+        script.SetScore(GetScore(levelInfos[level - 1].requiredScore, rewinds));
     }
 
     void SaveToPlayerPrefsAndShowHighscore(EndLevelUIScript script){
         int previousScore = PlayerPrefs.GetInt(level.ToString(), 0);
 
-        if(level > PlayerPrefs.GetInt("lastPlayedLevel", 1)){
+        if(level >= PlayerPrefs.GetInt("lastPlayedLevel", 1)){
             PlayerPrefs.SetInt("lastPlayedLevel", level + 1);
         }
         

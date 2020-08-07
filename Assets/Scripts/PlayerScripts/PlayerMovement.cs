@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(other.relativeVelocity.magnitude > 5f){
-            AudioManager.Instance.PlayCollisionSound(other.relativeVelocity.magnitude / 10f);
+            AudioManager.Instance.PlayCollisionSound(other.relativeVelocity.magnitude / 20f);
         }
     }
 }
