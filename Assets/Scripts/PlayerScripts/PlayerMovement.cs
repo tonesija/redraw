@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
         grounded = false;

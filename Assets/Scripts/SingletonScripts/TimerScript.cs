@@ -31,7 +31,6 @@ public class TimerScript : MonoBehaviour
     }
 
     public void SetTime(float time){
-        print("Time set to " + time);
         this.time = time;
     }
 
