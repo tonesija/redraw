@@ -62,4 +62,12 @@ public class UIManagerScript : MonoBehaviour {
         }
     }
 
+    public void ToggleSound(bool toggle){
+        if(toggle){
+            AudioManager.Instance.SoundOff();
+        } else {
+            AudioManager.Instance.SoundOn();
+        }
+    }
+
 }

@@ -16,13 +16,16 @@ public class EndLevelUIScript : MonoBehaviour
 
     public Button mainMenuBtn;
 
+    public Button restartLvlBtn;
+
     int score;
 
     void Start() {
         nextLvlBtn.onClick.AddListener(delegate { OnNextLvlClick(); });
         mainMenuBtn.onClick.AddListener(delegate { OnMainMenuClick(); });
-
+        restartLvlBtn.onClick.AddListener(delegate { OnRestartLvlClick(); });
     }
+
 
 
     public void SetScore(int score){
@@ -33,7 +36,6 @@ public class EndLevelUIScript : MonoBehaviour
         thirdStar.GetComponent<Image>().color = Color.black;
 
         StartCoroutine("SpawnStars");
-
     }
 
     public void DisableNextLvlBtn(){
@@ -51,6 +53,16 @@ public class EndLevelUIScript : MonoBehaviour
 
     void OnMainMenuClick(){
         LevelManagerScript.Instance.LoadMainMenu();
+    }
+
+    void OnRestartLvlClick(){
+        AudioManager.Instance.PlayRestarLevelSound();
+        LevelManagerScript.Instance.LoadLevel(LevelManagerScript.Instance.GetCurrentLvl());
+    }
+
+    IEnumerator ShowUI(){
+        yield return StartCoroutine("WaitForSeconds", 0.6f);
+        gameObject.SetActive(true);
     }
 
     IEnumerator SpawnStars(){
