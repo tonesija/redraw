@@ -114,6 +114,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+    
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Trampoline"){
+            AudioManager.Instance.PlayTrampolineSound();
+            return;
+        }
+
+        if(other.relativeVelocity.magnitude > 5f){
+            AudioManager.Instance.PlayCollisionSound(other.relativeVelocity.magnitude / 10f);
+        }
+    }
 }
 
 

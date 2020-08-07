@@ -12,6 +12,8 @@ public class UIManagerScript : MonoBehaviour {
             completionTxt = completionObj.GetComponent<TextMeshProUGUI>();
             SetCompletionText();
         }
+
+        AudioManager.Instance.PlayMenuMusic();
     }
     public void LoadLastPlayedLevel(){
         int lastPlayedLevel = PlayerPrefs.GetInt("lastPlayedLevel", 1);
@@ -50,6 +52,14 @@ public class UIManagerScript : MonoBehaviour {
         }
 
         completionTxt.text = collectedStars + "/" + maxStars;
+    }
+
+    public void ToggleMusic(bool toggle){
+        if(toggle){
+            AudioManager.Instance.MusicOff();
+        } else {
+            AudioManager.Instance.MusicOn();
+        }
     }
 
 }

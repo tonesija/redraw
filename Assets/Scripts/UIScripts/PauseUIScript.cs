@@ -27,6 +27,7 @@ public class PauseUIScript : MonoBehaviour
     }
 
     void OnRestartClick(){
+        AudioManager.Instance.PlayRestarLevelSound();
         LevelManagerScript.Instance.LoadLevel(LevelManagerScript.Instance.GetCurrentLvl());
     }
 }
