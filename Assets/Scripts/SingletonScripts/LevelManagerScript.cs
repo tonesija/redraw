@@ -73,6 +73,7 @@ public class LevelManagerScript : MonoBehaviour
     //finds the spawnLocation, subscribes to players listeners and spawns the first player
     void NextLevel(){
         Time.timeScale = 1;
+        AudioManager.Instance.PlayGameMusic();
         spawnLoc = GameObject.Find("PlayerSpawn").transform.position;
         rewinds = 0;
         endLvlUIActive = false;
@@ -108,6 +109,7 @@ public class LevelManagerScript : MonoBehaviour
     //triggers when player presses the rewind button
     void OnPlayerRewind(){
         StopCoroutine("SpawnPlayers");
+        AudioManager.Instance.PlayEraserSound();
         rewinds++;
 
         Vector2 playerOffset = new Vector2(0, players[0].GetComponent<Collider2D>().bounds.size.y / 2);

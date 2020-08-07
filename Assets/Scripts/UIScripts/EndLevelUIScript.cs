@@ -56,18 +56,31 @@ public class EndLevelUIScript : MonoBehaviour
     IEnumerator SpawnStars(){
             switch (score){
             case 1:yield return StartCoroutine("WaitForSeconds",0.3f);
-        firstStar.GetComponent<Image>().color = Color.white; break;
+        First(); break;
             case 2:yield return StartCoroutine("WaitForSeconds",0.3f);
-        firstStar.GetComponent<Image>().color = Color.white;
+        First();
         yield return StartCoroutine("WaitForSeconds",0.3f);
-        secondStar.GetComponent<Image>().color = Color.white; break;
+        Second(); break;
             case 3: yield return StartCoroutine("WaitForSeconds",0.3f);
-        firstStar.GetComponent<Image>().color = Color.white;
+        First();
         yield return StartCoroutine("WaitForSeconds",0.3f);
-        secondStar.GetComponent<Image>().color = Color.white;
+        Second();
         yield return StartCoroutine("WaitForSeconds",0.3f);
-        thirdStar.GetComponent<Image>().color = Color.white; break;
+        Third(); break;
         }
+    }
+
+    void First(){
+        firstStar.GetComponent<Image>().color = Color.white;
+        AudioManager.Instance.PlayStar1Sound();
+    }
+    void Second(){
+        secondStar.GetComponent<Image>().color = Color.white;
+        AudioManager.Instance.PlayStar2Sound();
+    }
+    void Third(){
+        thirdStar.GetComponent<Image>().color = Color.white;
+        AudioManager.Instance.PlayStar3Sound();
     }
 
     IEnumerator WaitForSeconds (float seconds) {

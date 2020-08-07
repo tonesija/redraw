@@ -42,6 +42,9 @@ public class CannonScript : MonoBehaviour, IResetable
 
             GameObject fired = Instantiate(projectilePrefab, transform.position + (Vector3)shootPosition, Quaternion.identity);
             fired.GetComponent<Rigidbody2D>().velocity = force;
+
+            AudioManager.Instance.PlayCannonSound();
+            
             activeProjectiles.Add(fired);
         }
     }
