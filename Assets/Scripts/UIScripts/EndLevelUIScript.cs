@@ -48,14 +48,17 @@ public class EndLevelUIScript : MonoBehaviour
     }
 
     void OnNextLvlClick(){
+        AudioManager.Instance.PlayButtonClickSound();
         LevelManagerScript.Instance.LoadNextLevel();
     }
 
     void OnMainMenuClick(){
+        AudioManager.Instance.PlayButtonClickSound();
         LevelManagerScript.Instance.LoadMainMenu();
     }
 
     void OnRestartLvlClick(){
+        AudioManager.Instance.PlayButtonClickSound();
         AudioManager.Instance.PlayRestarLevelSound();
         LevelManagerScript.Instance.LoadLevel(LevelManagerScript.Instance.GetCurrentLvl());
     }

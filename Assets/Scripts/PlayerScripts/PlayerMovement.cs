@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     IEnumerator MorphTo(GameObject toMorph){
+        AudioManager.Instance.PlayMorphSound();
         Vector2 morphLoc = transform.position + (Vector3)new Vector2(0, toMorph.GetComponent<SpriteRenderer>().bounds.size.y / 2f);
         GameObject newObj = Instantiate(toMorph, morphLoc, Quaternion.identity);
         newObj.GetComponent<PlayerMorphs>().AddToResetableList();

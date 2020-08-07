@@ -16,6 +16,7 @@ public class UIManagerScript : MonoBehaviour {
         AudioManager.Instance.PlayMenuMusic();
     }
     public void LoadLastPlayedLevel(){
+        AudioManager.Instance.PlayButtonClickSound();
         int lastPlayedLevel = PlayerPrefs.GetInt("lastPlayedLevel", 1);
         
         if(lastPlayedLevel > LevelManagerScript.Instance.levelInfos.Length){
@@ -26,18 +27,22 @@ public class UIManagerScript : MonoBehaviour {
     }
 
     public void LoadLevelsScene(){
+        AudioManager.Instance.PlayButtonClickSound();
         SceneManager.LoadScene("LevelsScene");
     }
 
     public void LoadSettingsScene(){
+        AudioManager.Instance.PlayButtonClickSound();
         SceneManager.LoadScene("SettingsScene");
     }
 
     public void LoadAboutScene(){
+        AudioManager.Instance.PlayButtonClickSound();
         SceneManager.LoadScene("AboutScene");
     }
 
     public void LoadMainMenuScene(){
+        AudioManager.Instance.PlayButtonClickSound();
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -55,6 +60,7 @@ public class UIManagerScript : MonoBehaviour {
     }
 
     public void ToggleMusic(bool toggle){
+        AudioManager.Instance.PlayButtonClickSound();
         if(toggle){
             AudioManager.Instance.MusicOff();
         } else {
@@ -63,6 +69,7 @@ public class UIManagerScript : MonoBehaviour {
     }
 
     public void ToggleSound(bool toggle){
+        AudioManager.Instance.PlayButtonClickSound();
         if(toggle){
             AudioManager.Instance.SoundOff();
         } else {

@@ -23,10 +23,12 @@ public class PauseUIScript : MonoBehaviour
     }
 
     void OnMainMenuClick(){
+        AudioManager.Instance.PlayButtonClickSound();
         LevelManagerScript.Instance.LoadMainMenu();
     }
 
     void OnRestartClick(){
+        AudioManager.Instance.PlayButtonClickSound();
         AudioManager.Instance.PlayRestarLevelSound();
         LevelManagerScript.Instance.LoadLevel(LevelManagerScript.Instance.GetCurrentLvl());
     }

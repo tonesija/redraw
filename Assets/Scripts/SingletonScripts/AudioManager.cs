@@ -26,7 +26,15 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource levelFinishedSound;
 
+    public AudioSource morphSound;
+
+    public AudioSource buttonClickSound;
+
+    float buttonClickVolume;
+
     float menuMusicVolume;
+
+    float morphVolume;
 
     float gameMusicVolume;
 
@@ -64,6 +72,8 @@ public class AudioManager : MonoBehaviour
         cannonVolume = cannonSound.volume;
         collisionVolume = collisonSound.volume;
         levelFinishedVolume = levelFinishedSound.volume;
+        buttonClickVolume = buttonClickSound.volume;
+        morphVolume = morphSound.volume;
     }
 
     public void MusicOff(){
@@ -89,6 +99,8 @@ public class AudioManager : MonoBehaviour
         cannonSound.volume = cannonVolume;
         collisonSound.volume = collisionVolume;
         levelFinishedSound.volume = levelFinishedVolume;
+        buttonClickSound.volume = buttonClickVolume;
+        morphSound.volume = morphVolume;
     }
 
     public void SoundOff(){
@@ -102,6 +114,8 @@ public class AudioManager : MonoBehaviour
         cannonSound.volume = 0;
         collisonSound.volume = 0;
         levelFinishedSound.volume = 0;
+        buttonClickSound.volume = 0;
+        morphSound.volume = 0;
     }
 
     public void PlayMenuMusic(){
@@ -149,6 +163,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayLevelFinishedSound(){
         levelFinishedSound.Play();
+    }
+
+    public void PlayMorphSound(){
+        morphSound.Play();
+    }
+
+    public void PlayButtonClickSound(){
+        buttonClickSound.Play();
     }
 
     
