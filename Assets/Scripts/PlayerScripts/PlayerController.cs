@@ -62,13 +62,13 @@ public class PlayerController : MonoBehaviour
 
 
         //---JUMP---
-        if(Input.GetKeyDown(KeyCode.Space) && gameRunning){
+        if((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))  && gameRunning){
             playerMovement.Jump();
             AddActionEntry(TimerScript.Instance.GetTime(), KeyCode.Space, true);
         }
 
         //---PAUSE---
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetKeyDown(KeyCode.P)){
             OnPauseBtnClick();
         }
 
